@@ -241,16 +241,17 @@ with open(options.input_file) as fp:
                 for j in range(features.entities[i][0]+1,features.entities[i][1]):
                     tags[j] = "I-ENTITY"
 
-        output = ["%s/%s" % (words[x], tags[x]) for x in range(len(words))]
+        output = ["%s\t%s" % (words[x], tags[x]) for x in range(len(words))]
         if pos:
-            output = ["%s/%s" % (output[x], pos[x]) for x in range(len(output))]
+            output = ["%s\t%s" % (output[x], pos[x]) for x in range(len(output))]
         if chunk:
-            output = ["%s/%s" % (output[x], chunk[x]) for x in range(len(output))]
+            output = ["%s\t%s" % (output[x], chunk[x]) for x in range(len(output))]
         if events:
-            output = ["%s/%s" % (output[x], events[x]) for x in range(len(output))]
+            output = ["%s\t%s" % (output[x], events[x]) for x in range(len(output))]
         #sys.stdout.write((" ".join(output) + "\n").encode('utf8'))
-        row[options.text_pos] = (" ".join(output))
+        row[options.text_pos] = ("\n".join(output))
         print >> out_fp, ("\t".join(row)).encode('utf8')
+        print >> out_fp
         #print >> sys.stderr, "\tWrote Line: %s, %s" % (nLines, row[options.text_pos])
 
     #    if pos:
